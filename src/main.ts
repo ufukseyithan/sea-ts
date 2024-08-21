@@ -19,4 +19,3 @@ __HOOKS__.drop = (playerId: PlayerID): DropHookReturn | void => {
 }
 
 addhook('drop', '__HOOKS__.drop')
-
