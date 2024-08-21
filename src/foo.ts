@@ -1,5 +1,3 @@
 export default class Foo {
-  constructor() {
-
-  }
+  constructor() {}
 }

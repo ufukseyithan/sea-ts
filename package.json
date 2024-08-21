@@ -2,14 +2,23 @@
   "name": "sea-ts",
   "version": "1.0.0-dev",
   "description": "",
+  "type": "module",
   "scripts": {
     "build": "tstl",
-    "dev": "tstl --watch"
+    "dev": "tstl --watch",
+    "eslint": "eslint src",
+    "format": "prettier --write src"
   },
   "author": "Adrian Gajos & Ufuk Seyithan Erdem",
   "license": "MIT",
   "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@types/eslint__js": "^8.42.3",
+    "eslint": "^9.9.0",
+    "eslint-config-prettier": "^9.1.0",
     "lua-types": "^2.13.1",
+    "prettier": "3.3.3",
+    "typescript-eslint": "^8.2.0",
     "typescript-to-lua": "^1.26.2"
   }
 }

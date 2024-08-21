@@ -15,18 +15,68 @@ declare function bot_skill(skill: 0 | 1 | 2 | 3 | 4): void;
 declare function bot_weapons(weapons: number): void;
 declare function changelevel(map: string): void;
 declare function changemap(map: string): void;
-declare function customkill(killer: PlayerID, weaponname: string, victim: PlayerID): void;
+declare function customkill(
+  killer: PlayerID,
+  weaponname: string,
+  victim: PlayerID,
+): void;
 declare function deathslap(player: PlayerID): void;
-declare function effect(effect: "fire" | "smoke" | "blood" | "flare" | "colorsmoke" | "sparkles", x: number, y: number, p1: number, p2: number, r?: number, g?: number, b?: number): void;
+declare function effect(
+  effect: "fire" | "smoke" | "blood" | "flare" | "colorsmoke" | "sparkles",
+  x: number,
+  y: number,
+  p1: number,
+  p2: number,
+  r?: number,
+  g?: number,
+  b?: number,
+): void;
 declare function equip(player: PlayerID, weapon: WeaponItemType): void;
-declare function explosion(x: number, y: number, size: number, damage: number, sourceplayer?: PlayerID): void;
+declare function explosion(
+  x: number,
+  y: number,
+  size: number,
+  damage: number,
+  sourceplayer?: PlayerID,
+): void;
 declare function flashplayer(player: PlayerID, intensity: number): void;
 declare function flashposition(x: number, y: number, intensity: number): void;
-declare function hudtxt(id: number, text: string, x: number, y: number, align: number): void;
-declare function hudtxt2(player: PlayerID, id: number, text: string, x: number, y: number, align: number): void;
-declare function hudtxtalphafade(player: PlayerID, id: number, duration: number, alpha: number): void;
-declare function hudtxtcolorfade(player: PlayerID, id: number, duration: number, red: number, green: number, blue: number): void;
-declare function hudtxtmove(player: PlayerID, id: number, duration: number, x: number, y: number): void;
+declare function hudtxt(
+  id: number,
+  text: string,
+  x: number,
+  y: number,
+  align: number,
+): void;
+declare function hudtxt2(
+  player: PlayerID,
+  id: number,
+  text: string,
+  x: number,
+  y: number,
+  align: number,
+): void;
+declare function hudtxtalphafade(
+  player: PlayerID,
+  id: number,
+  duration: number,
+  alpha: number,
+): void;
+declare function hudtxtcolorfade(
+  player: PlayerID,
+  id: number,
+  duration: number,
+  red: number,
+  green: number,
+  blue: number,
+): void;
+declare function hudtxtmove(
+  player: PlayerID,
+  id: number,
+  duration: number,
+  x: number,
+  y: number,
+): void;
 declare function items(): void;
 declare function kick(player: PlayerID, reason: string): void;
 declare function killobject(objectid: number): void;
@@ -42,7 +92,9 @@ declare function makect(player: number): void;
 declare function makespec(player: number): void;
 declare function maket(player: number): void;
 declare function maps(): void;
-declare function mp_antispeeder(antispeederprotection: 0 | 1 | 2 | 3 | 4 | 5 | 6): void;
+declare function mp_antispeeder(
+  antispeederprotection: 0 | 1 | 2 | 3 | 4 | 5 | 6,
+): void;
 declare function mp_autogamemode(autogamemode: 0 | 1): void;
 declare function mp_autoteambalance(balance: 0 | 1): void;
 declare function mp_building_health(building: string, price: number): void;
@@ -71,7 +123,9 @@ declare function mp_killbuildingmoney(money: number): void;
 declare function mp_killbuildings(kill: number): void;
 declare function mp_killinfo(info: 0 | 1): void;
 declare function mp_killteambuildings(mode: 0 | 1 | 2): void;
-declare function mp_lagcompensation(maxcompensationtime: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10): void;
+declare function mp_lagcompensation(
+  maxcompensationtime: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
+): void;
 declare function mp_localrconoutput(output: 0 | 1): void;
 declare function mp_luamap(use: 0 | 1): void;
 declare function mp_luaserver(file: string): void;
@@ -127,8 +181,21 @@ declare function setweapon(player: PlayerID, weapon: WeaponItemType): void;
 declare function shake(player: PlayerID, power: number): void;
 declare function slap(player: PlayerID): void;
 declare function spawnitem(item: WeaponItemType, x: number, y: number): void;
-declare function spawnnpc(_type: number, x: number, y: number, rot: number): void;
-declare function spawnobject(_type: number, x: number, y: number, rot: number, mode: number, team: 0 | 1 | 2, player: PlayerID): void;
+declare function spawnnpc(
+  _type: number,
+  x: number,
+  y: number,
+  rot: number,
+): void;
+declare function spawnobject(
+  _type: number,
+  x: number,
+  y: number,
+  rot: number,
+  mode: number,
+  team: 0 | 1 | 2,
+  player: PlayerID,
+): void;
 declare function spawnplayer(player: PlayerID, x: number, y: number): void;
 declare function speedmod(player: PlayerID, speedmod: number): void;
 declare function strip(player: PlayerID, weapon: WeaponItemType): void;
