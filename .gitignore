@@ -1,0 +1,11 @@
+/node_modules
+/dist
+
+tsconfig.json
+
+# os
+desktop.ini
+.DS_Store
+
+# jetbrains
+.idea

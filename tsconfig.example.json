@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TypeScriptToLua/TypeScriptToLua/master/tsconfig-schema.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "types": ["@typescript-to-lua/language-extensions", "lua-types/5.1"],
+    "strict": true,
+    "outDir": "dist",
+  },
+  "tstl": {
+    "luaTarget": "5.1"
+  }
+}
