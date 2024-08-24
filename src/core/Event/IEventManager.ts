@@ -1,23 +1,32 @@
-export interface BaseEvent<TName extends string, TArgs extends any[]> {
-  eventName: TName;
-  eventArgs: TArgs;
+/** @noSelfInFile **/
+
+export interface BaseEvent<Arg extends any[]> {
+	name: string;
+	callback: (...args: Arg) => {}
 }
 
-export interface ConnectEvent extends BaseEvent<"connect", [string, number]> {}
-export interface DisconnectEvent extends BaseEvent<"disconnect", [string]> {}
+export interface HookEvent<Arg extends any[]> extends BaseEvent<Arg> {
+	name: HookValue;
+	callback: (...args: Arg) => {}
+}
 
-export type EventArgs<
-  T extends BaseEvent<string, any[]>,
-  E extends T["eventName"],
-> = T extends { eventName: E } ? T["eventArgs"] : never;
+export interface ConnectEvent extends HookEvent<[PlayerID]> {
+	name: 'connect';
+	callback: (playerId: PlayerID) => {}
+}
+
+export interface JoinEvent extends HookEvent<[PlayerID]> {
+	name: 'join';
+	callback: (playerId: PlayerID) => {}
+}
+
+export interface AttackEvent extends HookEvent<[PlayerID]> {
+	name: 'attack';
+	callback: (playerId: PlayerID) => {}
+}
 
 export interface IEventManager {
-  on<E extends BaseEvent<string, any[]>>(
-    eventName: E["eventName"],
-    callback: (...args: EventArgs<E, E["eventName"]>) => void,
-  ): void;
-  trigger<E extends BaseEvent<string, any[]>>(
-    eventName: E["eventName"],
-    ...args: EventArgs<E, E["eventName"]>
-  ): void;
+	on<E extends BaseEvent<any[]>>(name: E["name"], callback: E['callback']): void;
+
+	trigger<E extends BaseEvent<any[]>>(name: E["name"], ...args: Parameters<E['callback']>): void;
 }

@@ -1,5 +1,5 @@
 /** @noSelfInFile **/
-import { BaseEvent, EventArgs, IEventManager } from "./IEventManager";
+import { BaseEvent, ConnectEvent, HookEvent, IEventManager } from "./IEventManager";
 
 // import {
 //   EventArg,
@@ -10,9 +10,7 @@ import { BaseEvent, EventArgs, IEventManager } from "./IEventManager";
 //
 // type Events = Map<string, EventCallback[]>;
 //
-// // eslint-disable-next-line
-// declare var __HOOK__: Record<string, (callback: EventCallback) => void>;
-// __HOOK__ = {};
+
 //
 // class EventManager implements IEventManager {
 //   private events: Events = new Map();
@@ -49,31 +47,43 @@ import { BaseEvent, EventArgs, IEventManager } from "./IEventManager";
 //   public register(): void {}
 // }
 
-type Handlers = Map<string, any[]>;
+// eslint-disable-next-line
+declare var __HOOK__: Record<string, any>;
+__HOOK__ = {};
 
 class EventManager implements IEventManager {
-  private handlers: Handlers = new Map();
+	private handlers: Map<string, any[]> = new Map();
+	private hooks: Map<HookValue, boolean> = new Map();
 
-  on<E extends BaseEvent<string, any[]>>(
-    eventName: E["eventName"],
-    callback: (...args: EventArgs<E, E["eventName"]>) => void,
-  ): void {
-    let callbacks = this.handlers.get(eventName);
+	on<E extends BaseEvent<any[]>>(name: E["name"], callback: E['callback']): void {
+		let callbacks = this.handlers.get(name);
 
-    if (!callbacks) {
-      callbacks = [];
-      this.handlers.set(eventName, callbacks);
-    }
+		if (!callbacks) {
+			callbacks = [];
+			this.handlers.set(name, callbacks);
+			
+			if (!this.hooks.get(name as HookValue)) {
+	        	this.registerGlobalHook(name as HookValue);
+	        	this.hooks.set(name as HookValue, true);
+	       	}
+		}
 
-    callbacks.push(callback);
-  }
+		callbacks.push(callback);
+	}
 
-  trigger<E extends BaseEvent<string, any[]>>(
-    eventName: E["eventName"],
-    ...args: EventArgs<E, E["eventName"]>
-  ): void {
-    this.handlers.get(eventName)?.forEach((handler) => handler(...args));
-  }
+	trigger<E extends BaseEvent<any[]>>(name: E["name"], ...args: Parameters<E['callback']>): void {
+		this.handlers.get(name)?.forEach((handler) => handler(...args));
+	}
+
+	private registerGlobalHook<E extends HookEvent<any[]>>(name: E['name']): void {
+		__HOOK__[name] = (...args: Parameters<E['callback']>) => {
+			this.trigger<E>(name, ...args);
+		};
+
+		addhook(name, `__HOOK__.${name}`);
+	}
 }
 
 export const eventManager = new EventManager();
+
+

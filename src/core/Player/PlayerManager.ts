@@ -1,6 +1,7 @@
 import { Player } from "./Player";
 import { eventManager } from "../Event/EventManager";
 import { IManager } from "../Manager";
+import { AttackEvent, ConnectEvent } from "../Event/IEventManager";
 
 export class PlayerManager implements IManager {
   private players: Player[] = [];
@@ -31,13 +32,9 @@ export class PlayerManager implements IManager {
   }
 
   public register(): void {
-    eventManager.on("connect", (player) => {
-      // playerManager.create(playerId);
-    });
-
-    eventManager.on("disconnect", (playerId: PlayerID) => {
-      playerManager.remove(playerId);
-    });
+    eventManager.on<AttackEvent>('attack', (playerId: PlayerID): any => {
+      msg2(playerId, 'lol')
+    })
   }
 }
 
