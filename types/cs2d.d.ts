@@ -358,6 +358,7 @@ declare type HookValuePlayer =
   | "collect"
   | "connect"
   | "die"
+  | "disconnect"
   | "dominate"
   | "drop"
   | "flagcapture"
