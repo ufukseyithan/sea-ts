@@ -1,5 +1,5 @@
-import Foo from "./foo";
+import { eventManager } from "./core/Event/EventManager";
+import { playerManager } from "./core/Player/PlayerManager";
 
-const foo = new Foo();
-
-msg("Hello from main.ts");
+eventManager.register();
+playerManager.register();
