@@ -1,4 +1,4 @@
-import { AbstractEvent } from "../AbstractEvent";
+import { AbstractEvent } from "./AbstractEvent";
 
 export abstract class AbstractHook<
     T extends any[] = any[],

@@ -3,7 +3,6 @@ export type EventCallback<T extends any[] = any[]> = (
 ) => number | void;
 
 export abstract class AbstractEvent<T extends any[] = any[]> {
+    public abstract readonly name: string;
     private readonly callback!: EventCallback<T>;
-
-    protected constructor(public readonly name: string) {}
 }
