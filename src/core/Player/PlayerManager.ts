@@ -2,10 +2,8 @@ import { Player } from "./Player";
 import { IManager } from "../Manager";
 import { eventManager } from "../Event/EventManager";
 import {
+    CS2D,
     ConnectHook,
-    CS2D_ConnectHook,
-    CS2D_DisconnectHook,
-    CS2D_SayHook,
     DisconnectHook,
     SayHook,
 } from "../Event/events/player";
@@ -38,11 +36,11 @@ export class PlayerManager implements IManager {
     }
 
     public register(): void {
-        eventManager.on(CS2D_ConnectHook, (playerId: PlayerID): any => {
+        eventManager.on(CS2D.ConnectHook, (playerId: PlayerID): any => {
             eventManager.trigger(ConnectHook, this.create(playerId));
         });
 
-        eventManager.on(CS2D_DisconnectHook, (playerId: PlayerID): any => {
+        eventManager.on(CS2D.DisconnectHook, (playerId: PlayerID): any => {
             const player = this.get(playerId);
             if (player) {
                 eventManager.trigger(DisconnectHook, player);
@@ -51,7 +49,7 @@ export class PlayerManager implements IManager {
         });
 
         eventManager.on(
-            CS2D_SayHook,
+            CS2D.SayHook,
             (playerId: PlayerID, message: string): any => {
                 const player = this.get(playerId);
                 if (player) {
