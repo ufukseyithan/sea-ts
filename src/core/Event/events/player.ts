@@ -20,6 +20,10 @@ export const CS2D = {
     },
 };
 
+export class InitPlayerEvent extends AbstractEvent<[Player]> {
+    public name = "app:init-player";
+}
+
 export class ConnectEvent extends AbstractEvent<[Player]> {
     public name = "app:connect";
 }

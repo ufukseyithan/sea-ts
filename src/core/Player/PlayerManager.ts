@@ -1,7 +1,14 @@
 import { Player } from "./Player";
 import { IManager } from "../Manager";
 import { eventManager } from "../Event/EventManager";
-import { CS2D, ConnectEvent, DisconnectEvent, MoveEvent, SayEvent } from "../Event/events/player";
+import {
+    CS2D,
+    ConnectEvent,
+    DisconnectEvent,
+    MoveEvent,
+    SayEvent,
+    InitPlayerEvent,
+} from "../Event/events/player";
 
 export class PlayerManager implements IManager {
     private players: Player[] = [];
@@ -32,7 +39,9 @@ export class PlayerManager implements IManager {
 
     public register(): void {
         eventManager.on(CS2D.ConnectHook, (playerId: PlayerID): any => {
-            eventManager.trigger(ConnectEvent, this.create(playerId));
+            const player = this.create(playerId);
+            eventManager.trigger(InitPlayerEvent, player);
+            eventManager.trigger(ConnectEvent, player);
         });
 
         eventManager.on(CS2D.DisconnectHook, (playerId: PlayerID): any => {
@@ -57,17 +66,6 @@ export class PlayerManager implements IManager {
                 player["_y"] = y;
                 eventManager.trigger(MoveEvent, player, x, y);
             }
-        });
-
-        /**
-         * TEST
-         */
-        eventManager.on(ConnectEvent, (player: Player): any => {
-            msg(`Player ${player.name} #${player.usgn} has connected`);
-        });
-
-        eventManager.on(SayEvent, (player: Player, message: string): any => {
-            msg(`____ ${player.name} #${player.usgn} says: ${message}`);
         });
     }
 }
