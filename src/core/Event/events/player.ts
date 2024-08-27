@@ -20,18 +20,18 @@ export const CS2D = {
     },
 };
 
-export class ConnectHook extends AbstractEvent<[Player]> {
+export class ConnectEvent extends AbstractEvent<[Player]> {
     public name = "app:connect";
 }
 
-export class DisconnectHook extends AbstractEvent<[Player]> {
+export class DisconnectEvent extends AbstractEvent<[Player]> {
     public name = "app:disconnect";
 }
 
-export class SayHook extends AbstractEvent<[Player, string]> {
+export class SayEvent extends AbstractEvent<[Player, string]> {
     public name = "app:say";
 }
 
-export class MoveHook extends AbstractEvent<[Player, number, number]> {
+export class MoveEvent extends AbstractEvent<[Player, number, number]> {
     public name = "app:move";
 }

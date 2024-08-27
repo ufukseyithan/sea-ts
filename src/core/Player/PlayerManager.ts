@@ -1,13 +1,7 @@
 import { Player } from "./Player";
 import { IManager } from "../Manager";
 import { eventManager } from "../Event/EventManager";
-import {
-    CS2D,
-    ConnectHook,
-    DisconnectHook,
-    MoveHook,
-    SayHook,
-} from "../Event/events/player";
+import { CS2D, ConnectEvent, DisconnectEvent, MoveEvent, SayEvent } from "../Event/events/player";
 
 export class PlayerManager implements IManager {
     private players: Player[] = [];
@@ -32,53 +26,47 @@ export class PlayerManager implements IManager {
         }
     }
 
-    public get(id: PlayerID): Player | null {
+    public getById(id: PlayerID): Player | null {
         return this.playersById.get(id) || null;
     }
 
     public register(): void {
         eventManager.on(CS2D.ConnectHook, (playerId: PlayerID): any => {
-            eventManager.trigger(ConnectHook, this.create(playerId));
+            eventManager.trigger(ConnectEvent, this.create(playerId));
         });
 
         eventManager.on(CS2D.DisconnectHook, (playerId: PlayerID): any => {
-            const player = this.get(playerId);
+            const player = this.getById(playerId);
             if (player) {
-                eventManager.trigger(DisconnectHook, player);
+                eventManager.trigger(DisconnectEvent, player);
                 this.remove(playerId);
             }
         });
 
-        eventManager.on(
-            CS2D.SayHook,
-            (playerId: PlayerID, message: string): any => {
-                const player = this.get(playerId);
-                if (player) {
-                    eventManager.trigger(SayHook, player, message);
-                }
-            },
-        );
+        eventManager.on(CS2D.SayHook, (playerId: PlayerID, message: string): any => {
+            const player = this.getById(playerId);
+            if (player) {
+                eventManager.trigger(SayEvent, player, message);
+            }
+        });
 
-        eventManager.on(
-            CS2D.MoveHook,
-            (playerId: PlayerID, x: number, y: number): any => {
-                const player = this.get(playerId);
-                if (player) {
-                    player["_x"] = x;
-                    player["_y"] = y;
-                    eventManager.trigger(MoveHook, player, x, y);
-                }
-            },
-        );
+        eventManager.on(CS2D.MoveHook, (playerId: PlayerID, x: number, y: number): any => {
+            const player = this.getById(playerId);
+            if (player) {
+                player["_x"] = x;
+                player["_y"] = y;
+                eventManager.trigger(MoveEvent, player, x, y);
+            }
+        });
 
         /**
          * TEST
          */
-        eventManager.on(ConnectHook, (player: Player): any => {
+        eventManager.on(ConnectEvent, (player: Player): any => {
             msg(`Player ${player.name} #${player.usgn} has connected`);
         });
 
-        eventManager.on(SayHook, (player: Player, message: string): any => {
+        eventManager.on(SayEvent, (player: Player, message: string): any => {
             msg(`____ ${player.name} #${player.usgn} says: ${message}`);
         });
     }

@@ -26,17 +26,12 @@ export class EventManager implements IManager {
 
         callbacks.push(callback);
 
-        if (
-            Event.prototype instanceof AbstractHook &&
-            !this.hooks.get(event.name)
-        ) {
+        if (Event.prototype instanceof AbstractHook && !this.hooks.get(event.name)) {
             this.registerGlobalHook(Event);
             this.hooks.set(event.name, true);
         } else {
             const color = String.fromCharCode(169) + "116110255";
-            print(
-                `${color}Event listener registered for handling: ${event.name}`,
-            );
+            print(`${color}Event listener registered for handling: ${event.name}`);
         }
     }
 
@@ -44,9 +39,7 @@ export class EventManager implements IManager {
         Event: new () => E,
         ...args: T
     ): void {
-        this.events
-            .get(new Event().name)
-            ?.forEach((callback) => callback(...args));
+        this.events.get(new Event().name)?.forEach((callback) => callback(...args));
     }
 
     public register(): void {}
