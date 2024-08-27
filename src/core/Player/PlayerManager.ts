@@ -19,7 +19,6 @@ export class PlayerManager implements IManager {
 
         this.players.push(player);
         this.playersById.set(id, player);
-        print(`Player ${player.id} has connected`);
 
         return player;
     }

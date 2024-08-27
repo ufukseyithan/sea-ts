@@ -3,6 +3,7 @@
 import { AbstractEvent, EventCallback } from "./AbstractEvent";
 import { AbstractHook } from "./AbstractHook";
 import { IManager } from "../Manager";
+import { info } from "../../utils";
 
 // eslint-disable-next-line
 declare var __HOOK__: Record<string, (callback: EventCallback) => void>;
@@ -30,8 +31,7 @@ export class EventManager implements IManager {
             this.registerGlobalHook(Event);
             this.hooks.set(event.name, true);
         } else {
-            const color = String.fromCharCode(169) + "116110255";
-            print(`${color}Event listener registered for handling: ${event.name}`);
+            info(`Event listener registered for handling: ${event.name}`);
         }
     }
 

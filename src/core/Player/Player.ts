@@ -56,4 +56,8 @@ export class Player {
     public setTilePosition(tileX: number, tileY: number): void {
         this.setPosition(tileX * 32 + 16, tileY * 32 + 16);
     }
+
+    public msg(message: string): void {
+        msg2(this.id, message);
+    }
 }
