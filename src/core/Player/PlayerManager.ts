@@ -5,6 +5,7 @@ import {
     CS2D,
     ConnectHook,
     DisconnectHook,
+    MoveHook,
     SayHook,
 } from "../Event/events/player";
 
@@ -54,6 +55,18 @@ export class PlayerManager implements IManager {
                 const player = this.get(playerId);
                 if (player) {
                     eventManager.trigger(SayHook, player, message);
+                }
+            },
+        );
+
+        eventManager.on(
+            CS2D.MoveHook,
+            (playerId: PlayerID, x: number, y: number): any => {
+                const player = this.get(playerId);
+                if (player) {
+                    player["_x"] = x;
+                    player["_y"] = y;
+                    eventManager.trigger(MoveHook, player, x, y);
                 }
             },
         );

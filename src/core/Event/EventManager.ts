@@ -32,6 +32,11 @@ export class EventManager implements IManager {
         ) {
             this.registerGlobalHook(Event);
             this.hooks.set(event.name, true);
+        } else {
+            const color = String.fromCharCode(169) + "116110255";
+            print(
+                `${color}Event listener registered for handling: ${event.name}`,
+            );
         }
     }
 
@@ -53,7 +58,9 @@ export class EventManager implements IManager {
             this.trigger(Event, ...args);
         };
 
+        parse("debuglua 0");
         addhook(event.name as HookValue, `__HOOK__.${event.name}`);
+        parse("debuglua 1");
     }
 }
 
