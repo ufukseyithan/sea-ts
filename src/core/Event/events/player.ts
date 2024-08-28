@@ -11,6 +11,16 @@ export const CS2D = {
         public name = "disconnect";
     },
 
+    NameHook: class extends AbstractHook<[PlayerID, string, string, number]> {
+        public name = "name";
+
+        public static readonly Forced = {
+            ByPlayer: 0,
+            ByServer: 1,
+            Delayed: 2,
+        };
+    },
+
     SayHook: class extends AbstractHook<[PlayerID, string]> {
         public name = "say";
     },
@@ -30,6 +40,10 @@ export class ConnectEvent extends AbstractEvent<[Player]> {
 
 export class DisconnectEvent extends AbstractEvent<[Player]> {
     public name = "app:disconnect";
+}
+
+export class NameEvent extends AbstractEvent<[Player, string, string]> {
+    public name = "app:name";
 }
 
 export class SayEvent extends AbstractEvent<[Player, string]> {

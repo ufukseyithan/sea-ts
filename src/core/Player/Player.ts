@@ -1,18 +1,33 @@
 export class Player {
+    private _name: string;
     private _x: number;
     private _y: number;
 
     constructor(public id: PlayerID) {
+        this._name = player(id, "name");
         this._x = player(id, "x");
         this._y = player(id, "y");
     }
 
     public get name(): string {
-        return player(this.id, "name");
+        return this._name;
+    }
+
+    public set name(name: string) {
+        this._name = name;
+        parse(`setname ${this.id} "${name}"`);
     }
 
     public get usgn(): number {
         return player(this.id, "usgn");
+    }
+
+    public get speed(): number {
+        return player(this.id, "speedmod");
+    }
+
+    public set speed(speed: number) {
+        parse(`speedmod ${this.id} ${speed}`);
     }
 
     public get x(): number {
@@ -57,7 +72,7 @@ export class Player {
         this.setPosition(tileX * 32 + 16, tileY * 32 + 16);
     }
 
-    public msg(message: string): void {
+    public message(message: string): void {
         msg2(this.id, message);
     }
 }

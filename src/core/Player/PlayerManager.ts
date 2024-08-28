@@ -8,6 +8,7 @@ import {
     MoveEvent,
     SayEvent,
     InitPlayerEvent,
+    NameEvent,
 } from "../Event/events/player";
 
 export class PlayerManager implements IManager {
@@ -50,6 +51,21 @@ export class PlayerManager implements IManager {
                 this.remove(playerId);
             }
         });
+
+        eventManager.on(
+            CS2D.NameHook,
+            (playerId: PlayerID, oldName: string, newName: string, forced: number): any => {
+                if (forced == CS2D.NameHook.Forced.Delayed) {
+                    return;
+                }
+
+                const player = this.getById(playerId);
+                if (player) {
+                    player["_name"] = newName;
+                    eventManager.trigger(NameEvent, player, oldName, newName);
+                }
+            },
+        );
 
         eventManager.on(CS2D.SayHook, (playerId: PlayerID, message: string): any => {
             const player = this.getById(playerId);
