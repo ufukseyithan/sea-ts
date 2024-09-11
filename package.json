@@ -9,7 +9,6 @@
     "eslint": "eslint src",
     "format": "prettier --write src"
   },
-  "author": "Adrian Gajos & Ufuk Seyithan Erdem",
   "contributors": [
     "Gajos <thegajos@gmail.com>",
     "Ufuk Seyithan Erdem <usethemasea@gmail.com>"
