@@ -25,6 +25,10 @@ export const CS2D = {
         public name = "say";
     },
 
+    SayUtf8Hook: class extends AbstractHook<[PlayerID, string]> {
+        public name = "sayutf8";
+    },
+
     MoveHook: class extends AbstractHook<[PlayerID, number, number]> {
         public name = "move";
     },

@@ -1,3 +1,4 @@
+import { utf8 } from "../../modules/utf8";
 import { Player } from "./Player";
 import { IManager } from "../Manager";
 import { eventManager } from "../Event/EventManager";
@@ -67,10 +68,10 @@ export class PlayerManager implements IManager {
             },
         );
 
-        eventManager.on(CS2D.SayHook, (playerId: PlayerID, message: string): any => {
+        eventManager.on(CS2D.SayUtf8Hook, (playerId: PlayerID, message: string): any => {
             const player = this.getById(playerId);
             if (player) {
-                eventManager.trigger(SayEvent, player, message);
+                eventManager.trigger(SayEvent, player, utf8.decode(message));
             }
         });
 
