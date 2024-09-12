@@ -257,7 +257,6 @@ end
 return {
     utf8 = utf8,
     register = function()
-        print("\169108103235Lua: Loading UTF-8 wrapper")
         local _msg = msg
         function msg(txt)
             _msg(utf8.convert(txt))
