@@ -1,8 +1,8 @@
 export type Module = {
     name: string;
-    module: ModuleInterface;
+    module: IModule;
 };
 
-export interface ModuleInterface {
+export interface IModule {
     register: () => void;
 }

@@ -1,4 +1,4 @@
-import { Module } from "./IModule";
+import { Module } from "./types";
 import * as utf8_Module from "./utf8/utf8";
 import * as timerEx_Module from "./timerEx/timerEx";
 
