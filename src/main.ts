@@ -3,6 +3,8 @@ import { info } from "./utils";
 import { eventManager } from "./core/Event/EventManager";
 import { timeManager } from "./core/Time/TimeManager";
 import { playerManager } from "./core/Player/PlayerManager";
+import { gameManager } from "./core/Game";
+import { cacheManager } from "./core/Cache";
 
 for (const module of modules) {
     module.module.register();
@@ -10,6 +12,8 @@ for (const module of modules) {
 }
 
 eventManager.register();
+cacheManager.register();
+gameManager.register();
 timeManager.register();
 playerManager.register();
 
