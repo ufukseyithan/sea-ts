@@ -1,6 +1,6 @@
 import { AbstractHook } from "../AbstractHook";
 import { AbstractEvent } from "../AbstractEvent";
-import { Player } from "../../Player/Player";
+import { Player } from "../../Player";
 
 export const CS2D = {
     BreakHook: class extends AbstractHook<[number, number, PlayerID]> {

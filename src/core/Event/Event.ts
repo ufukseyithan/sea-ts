@@ -1,5 +1,5 @@
 /** @noSelfInFile */
-``;
+
 import { eventManager } from "./EventManager";
 import { AbstractEvent, EventCallback } from "./AbstractEvent";
 
