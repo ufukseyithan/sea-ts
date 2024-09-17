@@ -1,4 +1,5 @@
-import { cache } from "../Cache";
+import { Cache } from "../Cache";
+import { playerManager } from "./PlayerManager";
 
 export class Player {
     private _name: string;
@@ -33,7 +34,7 @@ export class Player {
     }
 
     public get rot(): number {
-        return cache.rememberForTick(this.getCacheKey("rot"), () => {
+        return Cache.rememberForTick(this.getCacheKey("rot"), () => {
             return (player(this.id, "rot") - 90 + 360) % 360;
         });
     }
@@ -86,5 +87,9 @@ export class Player {
 
     private getCacheKey(key: string): string {
         return `core:player_${this.id}_${key}`;
+    }
+
+    public static getById(id: PlayerID): Player | null {
+        return playerManager.getById(id);
     }
 }

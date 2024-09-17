@@ -1,6 +1,6 @@
 import { AbstractHook } from "../AbstractHook";
-import { Player } from "../../Player/Player";
 import { AbstractEvent } from "../AbstractEvent";
+import { Player } from "../../Player";
 
 export const CS2D = {
     ConnectHook: class extends AbstractHook<[PlayerID]> {

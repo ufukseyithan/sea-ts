@@ -1,18 +1,16 @@
 import { IManager } from "../Manager";
-import { eventManager } from "../Event/EventManager";
-import { AlwaysEvent } from "../Event/events/time";
+import { Event } from "../Event";
 import { Game } from "./Game";
+import { AlwaysEvent } from "../Event/events/time";
 
-const game = new Game();
-const gameConnector = game["connector"];
+const gameConnector = Game["connector"];
 
 class GameManager implements IManager {
     public register(): void {
-        eventManager.on(AlwaysEvent, () => {
+        Event.on(AlwaysEvent, () => {
             gameConnector.increaseTick();
         });
     }
 }
 
 export const gameManager = new GameManager();
-export { game };

@@ -9,7 +9,7 @@ import { info } from "../../utils";
 declare var __HOOK__: Record<string, (callback: EventCallback) => void>;
 __HOOK__ = {};
 
-export class EventManager implements IManager {
+class EventManager implements IManager {
     private events: Map<string, EventCallback[]> = new Map();
     private hooks: Map<string, boolean> = new Map();
 

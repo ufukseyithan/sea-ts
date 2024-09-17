@@ -1,8 +1,8 @@
 import modules from "./modules";
 import { info } from "./utils";
-import { eventManager } from "./core/Event/EventManager";
-import { timeManager } from "./core/Time/TimeManager";
-import { playerManager } from "./core/Player/PlayerManager";
+import { eventManager } from "./core/Event";
+import { timeManager } from "./core/Time";
+import { playerManager } from "./core/Player";
 import { gameManager } from "./core/Game";
 import { cacheManager } from "./core/Cache";
 

@@ -1,7 +1,7 @@
 import { utf8 } from "../../modules/utf8";
 import { Player } from "./Player";
 import { IManager } from "../Manager";
-import { eventManager } from "../Event/EventManager";
+import { Event } from "../Event";
 import {
     CS2D,
     ConnectEvent,
@@ -12,7 +12,7 @@ import {
     NameEvent,
 } from "../Event/events/player";
 
-export class PlayerManager implements IManager {
+class PlayerManager implements IManager {
     private players: Player[] = [];
     private playersById: Map<PlayerID, Player> = new Map();
 
@@ -39,21 +39,21 @@ export class PlayerManager implements IManager {
     }
 
     public register(): void {
-        eventManager.on(CS2D.ConnectHook, (playerId: PlayerID): any => {
+        Event.on(CS2D.ConnectHook, (playerId: PlayerID): any => {
             const player = this.create(playerId);
-            eventManager.trigger(InitPlayerEvent, player);
-            eventManager.trigger(ConnectEvent, player);
+            Event.trigger(InitPlayerEvent, player);
+            Event.trigger(ConnectEvent, player);
         });
 
-        eventManager.on(CS2D.DisconnectHook, (playerId: PlayerID): any => {
+        Event.on(CS2D.DisconnectHook, (playerId: PlayerID): any => {
             const player = this.getById(playerId);
             if (player) {
-                eventManager.trigger(DisconnectEvent, player);
+                Event.trigger(DisconnectEvent, player);
                 this.remove(playerId);
             }
         });
 
-        eventManager.on(
+        Event.on(
             CS2D.NameHook,
             (playerId: PlayerID, oldName: string, newName: string, forced: number): any => {
                 if (forced == CS2D.NameHook.Forced.Delayed) {
@@ -63,24 +63,24 @@ export class PlayerManager implements IManager {
                 const player = this.getById(playerId);
                 if (player) {
                     player["_name"] = newName;
-                    eventManager.trigger(NameEvent, player, oldName, newName);
+                    Event.trigger(NameEvent, player, oldName, newName);
                 }
             },
         );
 
-        eventManager.on(CS2D.SayUtf8Hook, (playerId: PlayerID, message: string): any => {
+        Event.on(CS2D.SayUtf8Hook, (playerId: PlayerID, message: string): any => {
             const player = this.getById(playerId);
             if (player) {
-                eventManager.trigger(SayEvent, player, utf8.decode(message));
+                Event.trigger(SayEvent, player, utf8.decode(message));
             }
         });
 
-        eventManager.on(CS2D.MoveHook, (playerId: PlayerID, x: number, y: number): any => {
+        Event.on(CS2D.MoveHook, (playerId: PlayerID, x: number, y: number): any => {
             const player = this.getById(playerId);
             if (player) {
                 player["_x"] = x;
                 player["_y"] = y;
-                eventManager.trigger(MoveEvent, player, x, y);
+                Event.trigger(MoveEvent, player, x, y);
             }
         });
     }

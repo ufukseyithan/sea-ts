@@ -1,17 +1,17 @@
 export class Game {
-    private _tick = 0;
+    private static _tick = 0;
 
-    public get tick(): number {
+    public static get tick(): number {
         return this._tick;
     }
 
-    public restart(): void {
+    public static restart(): void {
         parse("restart");
     }
 
-    private connector = {
+    private static connector = {
         increaseTick: () => {
-            this._tick++;
+            Game._tick++;
         },
     };
 }

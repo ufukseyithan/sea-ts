@@ -1,6 +1,6 @@
-import { Player } from "../../../core/Player/Player";
-import { eventManager } from "../../../core/Event/EventManager";
+import { Player } from "../../../core/Player";
 import { InitPlayerEvent } from "../../../core/Event/events/player";
+import { Event } from "../../../core/Event";
 
 class CustomPlayer {
     constructor(public readonly player: Player) {}
@@ -17,7 +17,7 @@ declare module "../../../core/Player/Player" {
 }
 
 export const registerPlayer = (): void => {
-    eventManager.on(InitPlayerEvent, (player: Player) => {
+    Event.on(InitPlayerEvent, (player: Player) => {
         player.customMod = new CustomPlayer(player);
     });
 };

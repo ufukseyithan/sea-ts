@@ -1,23 +1,23 @@
 import { IManager } from "../Manager";
-import { eventManager } from "../Event/EventManager";
+import { Event } from "../Event";
 import { CS2D, AlwaysEvent, MinuteEvent, Ms100Event, SecondEvent } from "../Event/events/time";
 
-export class TimeManager implements IManager {
+class TimeManager implements IManager {
     public register(): void {
-        eventManager.on(CS2D.AlwaysHook, (): any => {
-            eventManager.trigger(AlwaysEvent);
+        Event.on(CS2D.AlwaysHook, (): any => {
+            Event.trigger(AlwaysEvent);
         });
 
-        eventManager.on(CS2D.MinuteHook, (): any => {
-            eventManager.trigger(MinuteEvent);
+        Event.on(CS2D.MinuteHook, (): any => {
+            Event.trigger(MinuteEvent);
         });
 
-        eventManager.on(CS2D.SecondHook, (): any => {
-            eventManager.trigger(SecondEvent);
+        Event.on(CS2D.SecondHook, (): any => {
+            Event.trigger(SecondEvent);
         });
 
-        eventManager.on(CS2D.Ms100Hook, (): any => {
-            eventManager.trigger(Ms100Event);
+        Event.on(CS2D.Ms100Hook, (): any => {
+            Event.trigger(Ms100Event);
         });
     }
 }

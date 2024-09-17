@@ -1,14 +1,14 @@
-import { game } from "../Game";
+import { Game } from "../Game";
 
 export class Cache {
-    private cache: Map<string, unknown> = new Map();
-    private lastTick = -1;
+    private static cache: Map<string, unknown> = new Map();
+    private static lastTick = -1;
 
-    public rememberForTick<T>(key: string, callback: () => T): T {
-        if (this.lastTick !== game.tick) {
+    public static rememberForTick<T>(key: string, callback: () => T): T {
+        if (this.lastTick !== Game.tick) {
             this.cache.set(key, callback());
         }
-        this.lastTick = game.tick;
+        this.lastTick = Game.tick;
 
         return this.cache.get(key) as T;
     }
