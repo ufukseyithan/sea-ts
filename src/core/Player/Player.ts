@@ -1,3 +1,5 @@
+import { cache } from "../Cache";
+
 export class Player {
     private _name: string;
     private _x: number;
@@ -28,6 +30,12 @@ export class Player {
 
     public set speed(speed: number) {
         parse(`speedmod ${this.id} ${speed}`);
+    }
+
+    public get rot(): number {
+        return cache.rememberForTick(this.getCacheKey("rot"), () => {
+            return (player(this.id, "rot") - 90 + 360) % 360;
+        });
     }
 
     public get x(): number {
@@ -74,5 +82,9 @@ export class Player {
 
     public message(message: string): void {
         msg2(this.id, message);
+    }
+
+    private getCacheKey(key: string): string {
+        return `core:player_${this.id}_${key}`;
     }
 }
